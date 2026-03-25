@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: de5d9903db40a664f8b5bd6f092b7679
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 332152
+  packageName: Procedural Maze Generator Pro
+  packageVersion: 1.0
+  assetPath: Assets/MazeGenerator/Demo Scene/Demo Scene.unity
+  uploadId: 786020

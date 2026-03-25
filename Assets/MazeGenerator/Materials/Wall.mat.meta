@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6e9a048b01b983f4aa488b385f5b6cbc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 332152
+  packageName: Procedural Maze Generator Pro
+  packageVersion: 1.0
+  assetPath: Assets/MazeGenerator/Materials/Wall.mat
+  uploadId: 786020

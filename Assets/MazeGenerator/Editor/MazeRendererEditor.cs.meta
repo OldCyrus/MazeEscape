@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 872f81514ca8fbf469ec08560c732e6f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 332152
+  packageName: Procedural Maze Generator Pro
+  packageVersion: 1.0
+  assetPath: Assets/MazeGenerator/Editor/MazeRendererEditor.cs
+  uploadId: 786020

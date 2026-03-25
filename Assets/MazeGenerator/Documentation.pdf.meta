@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a9af53676cb1a7b45ac080a5aa674ae1
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 332152
+  packageName: Procedural Maze Generator Pro
+  packageVersion: 1.0
+  assetPath: Assets/MazeGenerator/Documentation.pdf
+  uploadId: 786020

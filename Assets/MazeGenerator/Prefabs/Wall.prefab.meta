@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: feea83c882d18fb40ba2fe9dbd811ff7
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 332152
+  packageName: Procedural Maze Generator Pro
+  packageVersion: 1.0
+  assetPath: Assets/MazeGenerator/Prefabs/Wall.prefab
+  uploadId: 786020
