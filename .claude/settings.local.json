@@ -1,4 +1,11 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__ai-game-developer__scene-list-opened",
+      "mcp__ai-game-developer__assets-get-data",
+      "Bash(grep -E \"\\\\.cs$\")"
+    ]
+  },
   "enabledMcpjsonServers": [
     "ai-game-developer"
   ]
