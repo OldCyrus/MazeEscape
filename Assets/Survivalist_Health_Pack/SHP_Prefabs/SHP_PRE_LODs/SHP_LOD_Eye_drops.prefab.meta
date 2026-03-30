@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4009f53e0fc5d6541abf3b0ddd8395cf
+timeCreated: 1475665845
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Eye_drops.prefab
+  uploadId: 140566

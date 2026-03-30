@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dffbbdb8fc40ad448a051819c7cb55e9
+timeCreated: 1475585270
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Materials/SGP_MAT_Liquid.mat
+  uploadId: 140566

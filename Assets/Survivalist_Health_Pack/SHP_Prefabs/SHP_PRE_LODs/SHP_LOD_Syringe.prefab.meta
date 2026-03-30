@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cb3ab1327be66574a80422ac72f2e70b
+timeCreated: 1475666141
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Syringe.prefab
+  uploadId: 140566

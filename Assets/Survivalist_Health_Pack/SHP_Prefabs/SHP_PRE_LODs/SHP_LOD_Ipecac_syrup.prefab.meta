@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 77f7bc4421e89ed4abf3a965dc564c34
+timeCreated: 1475661681
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Ipecac_syrup.prefab
+  uploadId: 140566

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a7e5a757758443e49a7c3e92b373bfd5
+timeCreated: 1475659352
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Doctors_bag.prefab
+  uploadId: 140566

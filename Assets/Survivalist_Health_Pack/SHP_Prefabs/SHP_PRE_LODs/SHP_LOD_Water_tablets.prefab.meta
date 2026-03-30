@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6cbd24ccf775a344facfd1e15ade3d05
+timeCreated: 1475663024
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Water_tablets.prefab
+  uploadId: 140566

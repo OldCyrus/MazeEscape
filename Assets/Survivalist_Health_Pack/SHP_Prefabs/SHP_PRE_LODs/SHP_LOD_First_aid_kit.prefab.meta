@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a38f04b22b057c446b61f11db800a9ad
+timeCreated: 1475659651
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_First_aid_kit.prefab
+  uploadId: 140566

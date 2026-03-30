@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e6b8b73ae8359cb49b092c186181e1a2
+timeCreated: 1475665123
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Pills_01.prefab
+  uploadId: 140566

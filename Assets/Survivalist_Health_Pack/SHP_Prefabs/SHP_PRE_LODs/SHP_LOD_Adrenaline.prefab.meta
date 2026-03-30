@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 078142ac8060ba64ab9aeb4759a1ffa1
+timeCreated: 1475663271
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Adrenaline.prefab
+  uploadId: 140566

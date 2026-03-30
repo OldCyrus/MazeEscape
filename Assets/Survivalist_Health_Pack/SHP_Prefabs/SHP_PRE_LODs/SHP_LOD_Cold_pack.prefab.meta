@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d6b5fad0d0c9d194c9d971173bf1df0f
+timeCreated: 1475660406
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Cold_pack.prefab
+  uploadId: 140566

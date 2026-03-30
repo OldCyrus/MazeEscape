@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a476c63436c485c4180145e6d1b6f9cf
+timeCreated: 1475661378
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Ointment.prefab
+  uploadId: 140566

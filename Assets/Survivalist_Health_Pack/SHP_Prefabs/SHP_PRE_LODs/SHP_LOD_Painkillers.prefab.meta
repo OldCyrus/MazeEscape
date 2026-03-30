@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f981f297f8d308d47a1a21e14cc167ab
+timeCreated: 1475662017
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Painkillers.prefab
+  uploadId: 140566

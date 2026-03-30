@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b8c42c043c44b184cb8568242b1a1374
+timeCreated: 1475665500
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_2048/SHP_PRE_Pills_01_2048.prefab
+  uploadId: 140566

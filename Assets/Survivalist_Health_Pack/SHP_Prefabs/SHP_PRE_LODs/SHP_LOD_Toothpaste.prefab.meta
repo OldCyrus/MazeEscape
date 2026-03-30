@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a732063ba26f9e040b72a16b2faead22
+timeCreated: 1475661126
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24835
+  packageName: Survival Health Pack
+  packageVersion: 4.0
+  assetPath: Assets/Survivalist_Health_Pack/SHP_Prefabs/SHP_PRE_LODs/SHP_LOD_Toothpaste.prefab
+  uploadId: 140566
