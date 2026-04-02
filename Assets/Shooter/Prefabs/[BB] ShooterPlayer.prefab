@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 8172449239711994889}
   - component: {fileID: 6606124303744922498}
   - component: {fileID: 492551780235547040}
+  - component: {fileID: -6456587038097154259}
   m_Layer: 3
   m_Name: '[BB] ShooterPlayer'
   m_TagString: Player
@@ -442,6 +443,7 @@ MonoBehaviour:
   onLookInput: {fileID: 11400000, guid: 8af931367978e4bc9bae53b88856ff5b, type: 2}
   onJumpPressed: {fileID: 11400000, guid: 84375de8d548d4a43a42608cffd89549, type: 2}
   onJumpReleased: {fileID: 11400000, guid: 4c295680fb10f4080ae6688f6a96a009, type: 2}
+  onInteractPressed: {fileID: 11400000, guid: 21f7633938ffce44a8678e0258e277ce, type: 2}
   onSprintStateChanged: {fileID: 11400000, guid: c3ec94fe2e7dd47aaadddb5e98e7c375, type: 2}
   onPrimaryActionPressed: {fileID: 11400000, guid: f48adbe17161042ef8cf65a5a455594a, type: 2}
   onPrimaryActionReleased: {fileID: 11400000, guid: a670f0da4a4d64cea91ff13081e68da8, type: 2}
@@ -819,7 +821,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   aimController: {fileID: 6606124303744922498}
   coreStats: {fileID: 1108927199896854533}
-  weaponLoadout: {fileID: 11400000, guid: ca92c5d6916f947a7a261a9e8b14e652, type: 2}
+  weaponLoadout: {fileID: 0}
   onPrimaryActionPressedEvent: {fileID: 11400000, guid: f48adbe17161042ef8cf65a5a455594a, type: 2}
   onPrimaryActionReleasedEvent: {fileID: 11400000, guid: a670f0da4a4d64cea91ff13081e68da8, type: 2}
   onReloadPressedEvent: {fileID: 11400000, guid: 3e0323886fd3a48e69c7c781f9c35b41, type: 2}
@@ -827,6 +829,19 @@ MonoBehaviour:
   onPreviousWeaponPressedEvent: {fileID: 11400000, guid: 3421e308e61ef4449a9391ff47b6c74e, type: 2}
   onAimingStateChanged: {fileID: 11400000, guid: 1dc6e9c29e890454fbff5f80b1fbf777, type: 2}
   onWeaponChanged: {fileID: 11400000, guid: 2b831b903c0ec4c438a5db8f74441180, type: 2}
+--- !u!114 &-6456587038097154259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7256a778cade44c862d18c7618ad62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
+  onInteractPressed: {fileID: 11400000, guid: 21f7633938ffce44a8678e0258e277ce, type: 2}
 --- !u!1 &6964032051100779426
 GameObject:
   m_ObjectHideFlags: 0

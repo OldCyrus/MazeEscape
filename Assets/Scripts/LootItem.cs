@@ -23,6 +23,9 @@ public abstract class LootItem : MonoBehaviour
     private Vector3 _startPos;
     private float _age;
 
+    private bool _playerInRange;
+    private GameObject _nearbyPlayer;
+
     protected virtual void Awake()
     {
         Transform v = transform.Find("Visual");
@@ -48,7 +51,28 @@ public abstract class LootItem : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            TryPickup(other.gameObject);
+        {
+            _playerInRange = true;
+            _nearbyPlayer  = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _playerInRange = false;
+            _nearbyPlayer  = null;
+        }
+    }
+
+    /// <summary>
+    /// Called by PlayerInteract when the player presses the interact key while in range.
+    /// </summary>
+    public void TryInteractPickup()
+    {
+        if (_playerInRange && _nearbyPlayer != null)
+            TryPickup(_nearbyPlayer);
     }
 
     private void TryPickup(GameObject player)

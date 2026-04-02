@@ -3,7 +3,18 @@
     "allow": [
       "mcp__ai-game-developer__scene-list-opened",
       "mcp__ai-game-developer__assets-get-data",
-      "Bash(grep -E \"\\\\.cs$\")"
+      "Bash(grep -E \"\\\\.cs$\")",
+      "Bash(grep -r \"m_Name: WeaponController\\\\|m_Name: ShooterAddon\" /c/Users/tubal/MazeEscape --include=*.prefab)",
+      "Bash(xargs grep:*)",
+      "Bash(grep -r \"WeaponController\\\\|ShooterAddon\" /c/Users/tubal/MazeEscape/*.prefab)",
+      "Bash(find /c/Users/tubal/MazeEscape -name *WeaponLoadout* -o -name *weapon*loadout*)",
+      "mcp__ai-game-developer__console-get-logs",
+      "mcp__ai-game-developer__assets-delete",
+      "mcp__ai-game-developer__gameobject-create",
+      "mcp__ai-game-developer__gameobject-component-add",
+      "mcp__ai-game-developer__gameobject-component-modify",
+      "mcp__ai-game-developer__assets-prefab-create",
+      "mcp__ai-game-developer__gameobject-destroy"
     ]
   },
   "enabledMcpjsonServers": [

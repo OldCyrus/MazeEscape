@@ -16818,6 +16818,17 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
+--- !u!114 &808175723 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5665431332410946729, guid: b39ba66e2043ce54ab21e3f4a7f88590, type: 3}
+  m_PrefabInstance: {fileID: 808175718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808175719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07930015541c00748b3e6826dfee9887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &811490490
 GameObject:
   m_ObjectHideFlags: 0
@@ -23101,6 +23112,7 @@ GameObject:
   - component: {fileID: 1159822616}
   - component: {fileID: 1159822615}
   - component: {fileID: 1159822617}
+  - component: {fileID: 1159822618}
   m_Layer: 0
   m_Name: MatchManager
   m_TagString: Untagged
@@ -23161,6 +23173,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MazeEscape.MatchManager
   ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &1159822618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159822614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46fe81f608a829e4d8eaa5de2c97b859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MazeEscape.BatSpawner
+  ShowTopMostFoldoutHeaderGroup: 1
+  mazeRenderer: {fileID: 808175723}
+  batPickupPrefab: {fileID: 2160626578538195034, guid: b0e2eb4f7658eba4aa917c93e592e9ac, type: 3}
+  batVisualPrefab: {fileID: 2160626578538195034, guid: b0e2eb4f7658eba4aa917c93e592e9ac, type: 3}
+  batCount: 4
+  minColOverride: 0
+  keyExclusionRadius: 2
 --- !u!1 &1171485342
 GameObject:
   m_ObjectHideFlags: 0
@@ -30805,6 +30836,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8095685718527813370, guid: 011b03a6f560b45ccb17a870289c9b35, type: 3}
+      propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095685718527813370, guid: 011b03a6f560b45ccb17a870289c9b35, type: 3}
+      propertyPath: 'NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b3b1a7174025495e81b48e041e82325, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -21,6 +21,8 @@ namespace Blocks.Gameplay.Core
         [SerializeField] private GameEvent onJumpPressed;
         [Tooltip("Raised when the jump button is released.")]
         [SerializeField] private GameEvent onJumpReleased;
+        [Tooltip("Raised when the interact button (E) is pressed.")]
+        [SerializeField] private GameEvent onInteractPressed;
         [Tooltip("Raised when the sprint state changes (pressed or released).")]
         [SerializeField] private BoolEvent onSprintStateChanged;
         [Tooltip("Raised when the primary action button is pressed.")]
@@ -81,6 +83,8 @@ namespace Blocks.Gameplay.Core
             m_InputActions.Player.PrimaryAction.canceled += HandlePrimaryActionReleased;
 
             m_InputActions.Player.Menu.performed += HandleMenuPressed;
+
+            m_InputActions.Player.Interact.performed += HandleInteractPressed;
         }
 
         private void UnregisterInputActions()
@@ -101,6 +105,8 @@ namespace Blocks.Gameplay.Core
             m_InputActions.Player.PrimaryAction.canceled -= HandlePrimaryActionReleased;
 
             m_InputActions.Player.Menu.performed -= HandleMenuPressed;
+
+            m_InputActions.Player.Interact.performed -= HandleInteractPressed;
         }
 
         #endregion
@@ -115,6 +121,7 @@ namespace Blocks.Gameplay.Core
         private void HandlePrimaryActionPressed(InputAction.CallbackContext context) => onPrimaryActionPressed?.Raise();
         private void HandlePrimaryActionReleased(InputAction.CallbackContext context) => onPrimaryActionReleased?.Raise();
         private void HandleMenuPressed(InputAction.CallbackContext context) => onMenuPressed?.Raise();
+        private void HandleInteractPressed(InputAction.CallbackContext context) => onInteractPressed?.Raise();
 
         #endregion
     }
