@@ -15777,6 +15777,14 @@ PrefabInstance:
       propertyPath: rows
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 5665431332410946729, guid: b39ba66e2043ce54ab21e3f4a7f88590, type: 3}
+      propertyPath: batPrefab
+      value: 
+      objectReference: {fileID: 5017081294378895316, guid: 7b665e63f99e30848b5db4524b06da93, type: 3}
+    - target: {fileID: 5665431332410946729, guid: b39ba66e2043ce54ab21e3f4a7f88590, type: 3}
+      propertyPath: pistolPrefab
+      value: 
+      objectReference: {fileID: 7619344827631590001, guid: c4d6e8f0b1c2d3e4f5a6b7c8d9e0f1a2, type: 3}
     - target: {fileID: 8661075752333830205, guid: b39ba66e2043ce54ab21e3f4a7f88590, type: 3}
       propertyPath: m_Name
       value: MazeGenerator

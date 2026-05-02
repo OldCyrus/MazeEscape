@@ -186,6 +186,16 @@ namespace Blocks.Gameplay.Shooter
         }
 
         /// <summary>
+        /// Grants the specified weapon prefab to this player at runtime.
+        /// Mirrors the loadout spawn pattern — safe to call only on the owner.
+        /// </summary>
+        public void AddWeapon(GameObject weaponPrefab)
+        {
+            if (!IsOwner) return;
+            StartCoroutine(AddWeaponCoroutine(weaponPrefab));
+        }
+
+        /// <summary>
         /// Gets the weapon index from the current player weapon state.
         /// </summary>
         /// <returns>The current weapon index.</returns>
@@ -305,6 +315,32 @@ namespace Blocks.Gameplay.Shooter
             {
                 m_PlayerWeaponState.Value = currentState;
             }
+        }
+
+        private IEnumerator AddWeaponCoroutine(GameObject weaponPrefab)
+        {
+            if (weaponPrefab == null) yield break;
+
+            GameObject weaponContainer = Instantiate(weaponPrefab);
+            NetworkObject weaponNetworkObject = weaponContainer.GetComponent<NetworkObject>();
+            if (weaponNetworkObject == null) { Destroy(weaponContainer); yield break; }
+
+            AttachableBehaviour attachableWeapon = weaponContainer.GetComponentInChildren<AttachableBehaviour>();
+            if (attachableWeapon == null) { Destroy(weaponContainer); yield break; }
+
+            ModularWeapon weaponComponent = attachableWeapon.GetComponent<ModularWeapon>();
+            if (weaponComponent == null) { Destroy(weaponContainer); yield break; }
+
+            weaponNetworkObject.SpawnWithOwnership(OwnerClientId);
+            yield return new WaitUntil(() => weaponNetworkObject.IsSpawned);
+
+            weaponContainer.SetActive(false);
+            m_SpawnedWeaponAttachables.Add(attachableWeapon);
+            m_WeaponImplementations.Add(weaponComponent);
+            m_WeaponPrefabNames.Add(weaponPrefab.name.Replace("(Clone)", "").Trim());
+
+            SetActiveWeapon(m_WeaponImplementations.Count - 1);
+            UpdatePlayerWeaponState();
         }
 
         private IEnumerator SpawnLoadoutWeaponsCoroutine()

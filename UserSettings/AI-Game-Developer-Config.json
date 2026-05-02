@@ -1,8 +1,12 @@
 {
-  "logLevel": 3,
+  "host": "http://localhost:58894",
+  "token": "Vj3ijmqarIJ1Tjv1YyKFaYOKqzlPGM7FZtwci9bMJOA",
+  "logLevel": "Warning",
   "keepServerRunning": true,
-  "transportMethod": 2,
-  "authOption": 1,
+  "transportMethod": "streamableHttp",
+  "authOption": "none",
+  "connectionMode": "Cloud",
+  "cloudToken": "qsD9gbDST-AgDUfMKMgn2ZY_tKN6HqOQgupl-GbDt7A",
   "tools": [
     {
       "name": "assets-copy",
@@ -65,8 +69,16 @@
       "enabled": true
     },
     {
+      "name": "assets-shader-get-data",
+      "enabled": true
+    },
+    {
       "name": "assets-shader-list-all",
       "enabled": true
+    },
+    {
+      "name": "console-clear-logs",
+      "enabled": false
     },
     {
       "name": "console-get-logs",
@@ -223,6 +235,14 @@
     {
       "name": "tests-run",
       "enabled": true
+    },
+    {
+      "name": "tool-list",
+      "enabled": true
+    },
+    {
+      "name": "tool-set-enabled-state",
+      "enabled": false
     },
     {
       "name": "type-get-json-schema",
@@ -421,10 +441,9 @@
       "enabled": true
     }
   ],
-  "host": "http://localhost:58894",
+  "skillAutoGenerate": {},
   "timeoutMs": 10000,
   "keepConnected": true,
-  "token": "Vj3ijmqarIJ1Tjv1YyKFaYOKqzlPGM7FZtwci9bMJOA",
   "generateSkillFiles": false,
   "skillsPath": "SKILLS"
 }

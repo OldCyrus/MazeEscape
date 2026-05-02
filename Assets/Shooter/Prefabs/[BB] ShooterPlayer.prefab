@@ -1,5 +1,126 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &646068214457110778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2354336181269857575}
+  m_Layer: 6
+  m_Name: BatSpinePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2354336181269857575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646068214457110778}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.2, y: -0.8810985, z: -0.08409545}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2263767085456731390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2167393069894868273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9158519610592562387}
+  - component: {fileID: 1691854644579876087}
+  - component: {fileID: 5021281389078415732}
+  m_Layer: 3
+  m_Name: Bat Visual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &9158519610592562387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2167393069894868273}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.056022715, y: -0.7631295, z: 0.6403416, w: 0.066765286}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9120481387420366108}
+  m_LocalEulerAnglesHint: {x: 80, y: -170, z: 0}
+--- !u!33 &1691854644579876087
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2167393069894868273}
+  m_Mesh: {fileID: 5416776002060891026, guid: b5e70adfb8ea05e4b916b8ece9307065, type: 3}
+--- !u!23 &5021281389078415732
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2167393069894868273}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 947f30db4320a80449d238f928208741, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2175889210200136280
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +394,8 @@ GameObject:
   - component: {fileID: 8172449239711994889}
   - component: {fileID: 6606124303744922498}
   - component: {fileID: 492551780235547040}
+  - component: {fileID: 6812994458305740382}
+  - component: {fileID: -4710445402017234095}
   m_Layer: 3
   m_Name: '[BB] ShooterPlayer'
   m_TagString: Player
@@ -336,7 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3509405776
+  GlobalObjectIdHash: 3299177739
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -819,7 +942,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   aimController: {fileID: 6606124303744922498}
   coreStats: {fileID: 1108927199896854533}
-  weaponLoadout: {fileID: 11400000, guid: ca92c5d6916f947a7a261a9e8b14e652, type: 2}
+  weaponLoadout: {fileID: 0}
   onPrimaryActionPressedEvent: {fileID: 11400000, guid: f48adbe17161042ef8cf65a5a455594a, type: 2}
   onPrimaryActionReleasedEvent: {fileID: 11400000, guid: a670f0da4a4d64cea91ff13081e68da8, type: 2}
   onReloadPressedEvent: {fileID: 11400000, guid: 3e0323886fd3a48e69c7c781f9c35b41, type: 2}
@@ -827,6 +950,73 @@ MonoBehaviour:
   onPreviousWeaponPressedEvent: {fileID: 11400000, guid: 3421e308e61ef4449a9391ff47b6c74e, type: 2}
   onAimingStateChanged: {fileID: 11400000, guid: 1dc6e9c29e890454fbff5f80b1fbf777, type: 2}
   onWeaponChanged: {fileID: 11400000, guid: 2b831b903c0ec4c438a5db8f74441180, type: 2}
+--- !u!114 &6812994458305740382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8b699d13bc5f24ba340be087eeb6d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MazeEscape.BatCarrier
+  ShowTopMostFoldoutHeaderGroup: 1
+  handAttachPoint: {fileID: 378836817889333911}
+  spineAttachPoint: {fileID: 1193007262088882024}
+  batVisual: {fileID: 2167393069894868273}
+  onWeaponChanged: {fileID: 11400000, guid: 2b831b903c0ec4c438a5db8f74441180, type: 2}
+--- !u!114 &-4710445402017234095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d891ed9dd2040d42b36040bdf635f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MazeEscape.BatMeleeAddon
+  ShowTopMostFoldoutHeaderGroup: 1
+  damage: 15
+  attackRange: 1.5
+  hitDelay: 0.35
+  attackCooldown: 0.8
+  onPrimaryActionPressed: {fileID: 11400000, guid: f48adbe17161042ef8cf65a5a455594a, type: 2}
+--- !u!1 &4774193184744459914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9120481387420366108}
+  m_Layer: 6
+  m_Name: BatHandPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9120481387420366108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4774193184744459914}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9158519610592562387}
+  m_Father: {fileID: 2263767085456731390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6964032051100779426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,7 +1673,13 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6691687773654949318, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2354336181269857575}
+    - targetCorrespondingSourceObject: {fileID: 6691687773654949318, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1192920102327165067}
+    - targetCorrespondingSourceObject: {fileID: 6691687773654949318, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9120481387420366108}
     - targetCorrespondingSourceObject: {fileID: 5996907324724041296, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1548907265424963482}
@@ -1506,6 +1702,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &378836817889333911 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5113490673302741935, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
+  m_PrefabInstance: {fileID: 4879406898947404088}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1193007262088882024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5996907324724041296, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}

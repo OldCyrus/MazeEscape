@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.AI.Navigation;
+using Unity.Netcode;
 
 namespace MazegeneratorPro
 {
@@ -14,6 +15,8 @@ namespace MazegeneratorPro
         [Header("Prefabs")]
         public GameObject wallPrefab;
         public GameObject floorPrefab;
+        public GameObject batPrefab;
+        public GameObject pistolPrefab;
 
         [Header("Options")]
         public bool generateOnStart = true;
@@ -95,8 +98,154 @@ namespace MazegeneratorPro
 
             // Bake NavMesh after maze is ready
             navMeshSurface.BuildNavMesh();
+
+            // Bat spawning is server-authoritative — only the server creates NetworkObjects.
+            // If the server hasn't started yet (maze generated before host session begins),
+            // subscribe to OnServerStarted so bats spawn the moment the session is ready.
+            if (batPrefab != null)
+            {
+                if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
+                {
+                    Debug.Log("[MazeRenderer] Server already running — calling SpawnBats directly.");
+                    SpawnBats();
+                }
+                else if (NetworkManager.Singleton != null)
+                {
+                    Debug.Log("[MazeRenderer] Server not yet started — subscribing to OnServerStarted.");
+                    NetworkManager.Singleton.OnServerStarted += SpawnBats;
+                }
+                else
+                {
+                    Debug.LogWarning("[MazeRenderer] NetworkManager.Singleton is null — bats cannot be spawned.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("[MazeRenderer] batPrefab is null — bats cannot be spawned.");
+            }
+
+            if (pistolPrefab != null)
+            {
+                if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
+                    SpawnPistols();
+                else if (NetworkManager.Singleton != null)
+                    NetworkManager.Singleton.OnServerStarted += SpawnPistols;
+            }
         }
 
+        private void OnDestroy()
+        {
+            if (NetworkManager.Singleton != null)
+            {
+                NetworkManager.Singleton.OnServerStarted -= SpawnBats;
+                NetworkManager.Singleton.OnServerStarted -= SpawnPistols;
+            }
+        }
+
+        private void SpawnBats()
+        {
+            Debug.Log($"[MazeRenderer] SpawnBats called. IsServer={NetworkManager.Singleton?.IsServer}, IsHost={NetworkManager.Singleton?.IsHost}");
+
+            var candidates = new System.Collections.Generic.List<Vector2Int>();
+
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < cols; c++)
+                {
+                    if (c >= cols / 2)
+                        candidates.Add(new Vector2Int(c, r));
+                }
+            }
+
+            // Shuffle candidates
+            for (int i = candidates.Count - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+                var tmp = candidates[i];
+                candidates[i] = candidates[j];
+                candidates[j] = tmp;
+            }
+
+            // Pick 4 cells that are at least 3 cells apart from each other
+            var chosen = new System.Collections.Generic.List<Vector2Int>();
+
+            foreach (var cell in candidates)
+            {
+                bool tooClose = false;
+                foreach (var picked in chosen)
+                {
+                    if (Mathf.Abs(cell.x - picked.x) + Mathf.Abs(cell.y - picked.y) < 3)
+                    {
+                        tooClose = true;
+                        break;
+                    }
+                }
+                if (!tooClose)
+                {
+                    chosen.Add(cell);
+                    if (chosen.Count == 4) break;
+                }
+            }
+
+            Debug.Log($"[MazeRenderer] SpawnBats: {chosen.Count} spawn locations chosen from {candidates.Count} candidates.");
+
+            // Spawn bats as NetworkObjects so they can be server-despawned on pickup
+            foreach (var cell in chosen)
+            {
+                Vector3 worldPos = transform.TransformPoint(new Vector3(cell.x * cellSize, 0f, cell.y * cellSize));
+                var go = Instantiate(batPrefab, worldPos, Quaternion.identity);
+                var netObj = go.GetComponent<NetworkObject>();
+                if (netObj == null)
+                {
+                    Debug.LogError($"[MazeRenderer] Bat prefab '{batPrefab.name}' is missing a NetworkObject component. Bats cannot be spawned.", batPrefab);
+                    Destroy(go);
+                    break;
+                }
+                Debug.Log($"[MazeRenderer] Spawning bat at {worldPos}, NetworkObject found: {netObj != null}, IsSpawned before Spawn(): {netObj.IsSpawned}");
+                netObj.Spawn();
+                Debug.Log($"[MazeRenderer] Bat Spawn() called. IsSpawned after: {netObj.IsSpawned}");
+            }
+        }
+
+        private void SpawnPistols()
+        {
+            var candidates = new System.Collections.Generic.List<Vector2Int>();
+            for (int r = 0; r < rows; r++)
+                for (int c = 0; c < cols; c++)
+                    if (c >= cols / 2)
+                        candidates.Add(new Vector2Int(c, r));
+
+            for (int i = candidates.Count - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+                var tmp = candidates[i];
+                candidates[i] = candidates[j];
+                candidates[j] = tmp;
+            }
+
+            var chosen = new System.Collections.Generic.List<Vector2Int>();
+            foreach (var cell in candidates)
+            {
+                bool tooClose = false;
+                foreach (var picked in chosen)
+                    if (Mathf.Abs(cell.x - picked.x) + Mathf.Abs(cell.y - picked.y) < 3)
+                    { tooClose = true; break; }
+                if (!tooClose)
+                {
+                    chosen.Add(cell);
+                    if (chosen.Count == 3) break;
+                }
+            }
+
+            foreach (var cell in chosen)
+            {
+                Vector3 worldPos = transform.TransformPoint(new Vector3(cell.x * cellSize, 0f, cell.y * cellSize));
+                var go = Instantiate(pistolPrefab, worldPos, Quaternion.identity);
+                var netObj = go.GetComponent<NetworkObject>();
+                if (netObj == null) { Destroy(go); break; }
+                netObj.Spawn();
+            }
+        }
 
         public void ClearMaze()
         {

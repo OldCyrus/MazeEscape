@@ -7,7 +7,7 @@ namespace MazegeneratorPro
     public class MazeRendererEditor : Editor
     {
         private SerializedProperty rows, cols, seed, cellSize;
-        private SerializedProperty wallPrefab, floorPrefab, generateOnStart;
+        private SerializedProperty wallPrefab, floorPrefab, batPrefab, generateOnStart;
         private SerializedProperty entryExitTyoe;
         private Texture2D headerTexture;
 
@@ -19,6 +19,7 @@ namespace MazegeneratorPro
             cellSize = serializedObject.FindProperty("cellSize");
             wallPrefab = serializedObject.FindProperty("wallPrefab");
             floorPrefab = serializedObject.FindProperty("floorPrefab");
+            batPrefab = serializedObject.FindProperty("batPrefab");
             generateOnStart = serializedObject.FindProperty("generateOnStart");
             entryExitTyoe = serializedObject.FindProperty("exitPlacement");
             headerTexture = Resources.Load<Texture2D>("maze_header");
@@ -30,9 +31,8 @@ namespace MazegeneratorPro
 
             if (headerTexture != null)
             {
-                // Reserve rect with correct aspect ratio
                 float aspect = (float)headerTexture.width / headerTexture.height;
-                float width = EditorGUIUtility.currentViewWidth - 20; // padding
+                float width = EditorGUIUtility.currentViewWidth - 20;
                 float height = width / aspect;
 
                 Rect rect = GUILayoutUtility.GetRect(width, height, GUILayout.ExpandWidth(true));
@@ -43,10 +43,8 @@ namespace MazegeneratorPro
                 EditorGUILayout.LabelField("Procedural Maze Generator", EditorStyles.boldLabel);
             }
 
-
             EditorGUILayout.Space();
 
-            // Maze Settings
             DrawSectionHeader("Maze Settings");
             EditorGUILayout.PropertyField(rows, new GUIContent("Rows"));
             EditorGUILayout.PropertyField(cols, new GUIContent("Cols"));
@@ -55,21 +53,19 @@ namespace MazegeneratorPro
 
             EditorGUILayout.Space();
 
-            // Prefabs
             DrawSectionHeader("Prefabs");
             EditorGUILayout.PropertyField(wallPrefab, new GUIContent("Wall Prefab"));
             EditorGUILayout.PropertyField(floorPrefab, new GUIContent("Floor Prefab"));
+            EditorGUILayout.PropertyField(batPrefab, new GUIContent("Bat Prefab"));
 
             EditorGUILayout.Space();
 
-            // Options
             DrawSectionHeader("Options");
             EditorGUILayout.PropertyField(generateOnStart, new GUIContent("Generate On Start"));
             EditorGUILayout.PropertyField(entryExitTyoe, new GUIContent("Extry and Exit Type"));
 
             EditorGUILayout.Space();
 
-            // Buttons
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Generate Maze", GUILayout.Height(30)))
             {
