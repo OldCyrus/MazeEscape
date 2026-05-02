@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 46fe81f608a829e4d8eaa5de2c97b859
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - mazeRenderer: {instanceID: 0}
+  - batPickupPrefab: {instanceID: 0}
+  - batVisualPrefab: {fileID: 2716415725864998416, guid: 4d5b4465b0d6b9e42baff27d66b0412f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

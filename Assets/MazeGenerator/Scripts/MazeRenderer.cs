@@ -247,6 +247,12 @@ namespace MazegeneratorPro
             }
         }
 
+        /// <summary>
+        /// Returns the generated MazeData after GenerateMaze() has run.
+        /// Used by BatSpawner (and any other system) to query cell layout.
+        /// </summary>
+        public MazeData GetMazeData() => maze;
+
         public void ClearMaze()
         {
             for (int i = transform.childCount - 1; i >= 0; i--)
