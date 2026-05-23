@@ -41,6 +41,8 @@ namespace Blocks.Gameplay.Shooter
         [Header("Input Events (Listening)")]
         [Tooltip("Event triggered when the player toggles aim mode.")]
         [SerializeField] private GameEvent onAimToggled;
+        [Tooltip("Event triggered when the active weapon changes.")]
+        [SerializeField] private WeaponSwapEvent onWeaponChanged;
 
         [Header("Gameplay Events (Broadcasting)")]
         [Tooltip("Event raised when aiming state changes. Contains the new aiming state.")]
@@ -106,6 +108,7 @@ namespace Blocks.Gameplay.Shooter
             if (m_PlayerManager.IsOwner)
             {
                 onAimToggled.RegisterListener(HandleAimToggled);
+                onWeaponChanged?.RegisterListener(HandleWeaponChanged);
             }
         }
 
@@ -118,6 +121,7 @@ namespace Blocks.Gameplay.Shooter
             if (m_PlayerManager != null && m_PlayerManager.IsOwner)
             {
                 onAimToggled.UnregisterListener(HandleAimToggled);
+                onWeaponChanged?.UnregisterListener(HandleWeaponChanged);
             }
         }
 
@@ -170,19 +174,10 @@ namespace Blocks.Gameplay.Shooter
             {
                 m_IsAiming = false;
                 if (onAimingStateChanged != null) onAimingStateChanged.Raise(false);
-
-                if (m_PlayerManager != null && m_PlayerManager.CoreCamera != null)
-                {
-                    m_PlayerManager.CoreCamera.SwitchCameraMode(thirdPersonFreeLookCameraName);
-                    m_PlayerManager.CoreCamera.SetLookSensitivity(freeLookSensitivity);
-
-                    // Sync movement rotation mode with the new camera mode
-                    if (m_PlayerManager.CoreMovement != null)
-                    {
-                        m_PlayerManager.CoreMovement.PlayerRotationMode = m_PlayerManager.CoreCamera.CurrentPlayerRotationMode;
-                    }
-                }
             }
+
+            if (m_PlayerManager?.CoreMovement != null)
+                m_PlayerManager.CoreMovement.PlayerRotationMode = CoreMovement.CouplingMode.Decoupled;
 
             if (aimController != null)
             {
@@ -195,8 +190,21 @@ namespace Blocks.Gameplay.Shooter
         /// Prevents aiming while reloading and switches between aim and free look camera modes.
         /// Updates camera sensitivity and player rotation mode based on aiming state.
         /// </summary>
+        private void HandleWeaponChanged(WeaponSwapPayload payload)
+        {
+            if (payload.NewWeapon?.GetWeaponData()?.isMelee == true && m_IsAiming)
+                ResetAimState();
+        }
+
         private void HandleAimToggled()
         {
+            // Melee weapons cannot aim
+            if (weaponController != null && weaponController.CurrentWeapon?.GetWeaponData()?.isMelee == true)
+            {
+                if (m_IsAiming) ResetAimState();
+                return;
+            }
+
             // Prevent aim toggle during reload to avoid animation conflicts
             bool isWeaponReloading = weaponController != null &&
                 weaponController.CurrentWeapon?.GetCurrentState() == WeaponState.Reloading;
@@ -211,19 +219,10 @@ namespace Blocks.Gameplay.Shooter
             m_IsAiming = !m_IsAiming;
             if (onAimingStateChanged != null) onAimingStateChanged.Raise(m_IsAiming);
 
-            if (m_PlayerManager.CoreCamera != null)
-            {
-                string modeName = m_IsAiming ? thirdPersonAimCameraName : thirdPersonFreeLookCameraName;
-                m_PlayerManager.CoreCamera.SwitchCameraMode(modeName);
-
-                float sensitivity = m_IsAiming ? aimSensitivity : freeLookSensitivity;
-                m_PlayerManager.CoreCamera.SetLookSensitivity(sensitivity);
-            }
-
-            if (m_PlayerManager.CoreMovement != null && m_PlayerManager.CoreCamera != null)
-            {
-                m_PlayerManager.CoreMovement.PlayerRotationMode = m_PlayerManager.CoreCamera.CurrentPlayerRotationMode;
-            }
+            if (m_PlayerManager?.CoreMovement != null)
+                m_PlayerManager.CoreMovement.PlayerRotationMode = m_IsAiming
+                    ? CoreMovement.CouplingMode.Coupled
+                    : CoreMovement.CouplingMode.Decoupled;
         }
 
         #endregion

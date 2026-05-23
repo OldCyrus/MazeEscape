@@ -354,6 +354,7 @@ namespace Blocks.Gameplay.Shooter
             {
                 m_CurrentWeaponData = null;
                 m_CurrentRecoilReturnSpeed = 10f;
+                m_CurrentSpineOffset = Vector3.zero;
             }
             if (IsOwner)
             {
@@ -490,6 +491,16 @@ namespace Blocks.Gameplay.Shooter
             {
                 currentRigState.hasWeapon = m_HasWeapon;
                 currentRigState.isAiming = m_IsAiming;
+                if (!m_HasWeapon)
+                {
+                    // No weapon active — release all rig constraints so they don't
+                    // hold the spine/hands in aim pose while the bat is equipped.
+                    currentRigState.spineWeight = 0f;
+                    currentRigState.spineOffset = Vector3.zero;
+                    currentRigState.rightHandWeight = 0f;
+                    currentRigState.rightHandOffset = Vector3.zero;
+                    currentRigState.leftHandWeight = 0f;
+                }
                 m_NetworkedAimRiggingState.Value = currentRigState;
             }
         }

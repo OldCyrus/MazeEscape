@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ff22f142bec4614a18f3ba08e85961, type: 3}
+  m_Name: Weapon Data Baseball Bat
+  m_EditorClassIdentifier: Blocks.Gameplay.Shooter::Blocks.Gameplay.Shooter.WeaponData
+  weaponName: Baseball Bat
+  weaponTypeID: 2
+  weaponIcon: {fileID: 0}
+  reticleImage: {fileID: 0}
+  reticleBaseSize: 80
+  reticleSpreadMultiplier: 100
+  handAttachmentNodeName: BatHandPoint
+  idleAttachmentNodeName: BatSpinePoint
+  isMelee: 1
+  weaponDamage: 15
+  recoil: {x: 0, y: 0.1, z: 0.1}
+  recoilReturnSpeed: 10
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  minShootingDistance: 1.5
+  clipSize: 999
+  reloadTime: 0
+  minSpreadAngle: 0.5
+  maxSpreadAngle: 5
+  spreadIncreasePerShot: 1
+  spreadRecoveryRate: 3
+  spreadRecoveryDelay: 0.2
+  spineOffset: {x: 0, y: 0, z: 0}
+  spineAimWeight: 0
+  muzzleFlashPrefab: {fileID: 0}
+  bulletShellPrefab: {fileID: 0}
+  impactEffectPrefab: {fileID: 0}
+  impactEffectDuration: 2
+  soundDefShoot: {fileID: 0}
+  soundDefRicochet: {fileID: 0}
+  tracerRadius: 0.02
+  tracerDuration: 0.1
+  tracerMaterial: {fileID: 0}
+  cameraShakeIntensity: 0.02

@@ -192,6 +192,24 @@ namespace Blocks.Gameplay.Core
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot1"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1b2c3d4-e5f6-7890-abcd-ef1234567890"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSlot2"",
+                    ""type"": ""Button"",
+                    ""id"": ""b2c3d4e5-f6a7-8901-bcde-f01234567891"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -363,7 +381,7 @@ namespace Blocks.Gameplay.Core
                 {
                     ""name"": """",
                     ""id"": ""cbac6039-9c09-46a1-b5f2-4e5124ccb5ed"",
-                    ""path"": ""<Keyboard>/2"",
+                    ""path"": ""<Mouse>/scroll/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -451,7 +469,7 @@ namespace Blocks.Gameplay.Core
                 {
                     ""name"": """",
                     ""id"": ""1534dc16-a6aa-499d-9c3a-22b47347b52a"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Mouse>/scroll/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -522,6 +540,28 @@ namespace Blocks.Gameplay.Core
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3d4e5f6-a7b8-9012-cdef-012345678902"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SelectSlot1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4e5f6a7-b8c9-0123-defa-123456789013"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SelectSlot2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1120,6 +1160,8 @@ namespace Blocks.Gameplay.Core
             m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+            m_Player_SelectSlot1 = m_Player.FindAction("SelectSlot1", throwIfNotFound: true);
+            m_Player_SelectSlot2 = m_Player.FindAction("SelectSlot2", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1224,6 +1266,8 @@ namespace Blocks.Gameplay.Core
         private readonly InputAction m_Player_Reload;
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_Menu;
+        private readonly InputAction m_Player_SelectSlot1;
+        private readonly InputAction m_Player_SelectSlot2;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1279,6 +1323,14 @@ namespace Blocks.Gameplay.Core
             /// Provides access to the underlying input action "Player/Menu".
             /// </summary>
             public InputAction @Menu => m_Wrapper.m_Player_Menu;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/SelectSlot1".
+            /// </summary>
+            public InputAction @SelectSlot1 => m_Wrapper.m_Player_SelectSlot1;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/SelectSlot2".
+            /// </summary>
+            public InputAction @SelectSlot2 => m_Wrapper.m_Player_SelectSlot2;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1338,6 +1390,12 @@ namespace Blocks.Gameplay.Core
                 @Menu.started += instance.OnMenu;
                 @Menu.performed += instance.OnMenu;
                 @Menu.canceled += instance.OnMenu;
+                @SelectSlot1.started += instance.OnSelectSlot1;
+                @SelectSlot1.performed += instance.OnSelectSlot1;
+                @SelectSlot1.canceled += instance.OnSelectSlot1;
+                @SelectSlot2.started += instance.OnSelectSlot2;
+                @SelectSlot2.performed += instance.OnSelectSlot2;
+                @SelectSlot2.canceled += instance.OnSelectSlot2;
             }
 
             /// <summary>
@@ -1382,6 +1440,12 @@ namespace Blocks.Gameplay.Core
                 @Menu.started -= instance.OnMenu;
                 @Menu.performed -= instance.OnMenu;
                 @Menu.canceled -= instance.OnMenu;
+                @SelectSlot1.started -= instance.OnSelectSlot1;
+                @SelectSlot1.performed -= instance.OnSelectSlot1;
+                @SelectSlot1.canceled -= instance.OnSelectSlot1;
+                @SelectSlot2.started -= instance.OnSelectSlot2;
+                @SelectSlot2.performed -= instance.OnSelectSlot2;
+                @SelectSlot2.canceled -= instance.OnSelectSlot2;
             }
 
             /// <summary>
@@ -1759,6 +1823,20 @@ namespace Blocks.Gameplay.Core
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMenu(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "SelectSlot1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSelectSlot1(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "SelectSlot2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSelectSlot2(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

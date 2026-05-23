@@ -42,6 +42,9 @@ namespace Blocks.Gameplay.Shooter
         public string idleAttachmentNodeName = "Spine_Attach";
 
         [Header("Weapon Properties")]
+        [Tooltip("If true, this weapon uses melee (sphere overlap) rather than ranged firing. Melee weapons fire without requiring the player to aim.")]
+        public bool isMelee = false;
+
         [Tooltip("The amount of damage the weapon deals per shot.")]
         public float weaponDamage = 10f;
 

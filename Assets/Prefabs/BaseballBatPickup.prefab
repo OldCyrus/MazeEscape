@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2017240006699273604}
   - component: {fileID: 3656986790176816838}
   - component: {fileID: 6786937434602997132}
+  - component: {fileID: 7654321098765432109}
   m_Layer: 0
   m_Name: BaseballBatPickup
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2160626578538195034}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6, y: 0.36546, z: -19.77417}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1627440064
+  GlobalObjectIdHash: 3702915421
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -69,16 +70,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2160626578538195034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b21f67be7a25043b3e01c65627b367, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bcc6ff8ae4a447cd9b29f6dd35c9346, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BaseballBat
-  lifetime: 30
-  spinSpeed: 90
-  bobHeight: 0.15
-  bobSpeed: 1.5
-  pickupSound: {fileID: 0}
-  pickupVFXPrefab: {fileID: 0}
-  batVisualPrefab: {fileID: 0}
+  m_EditorClassIdentifier: Blocks.Gameplay.Core::Blocks.Gameplay.Core.ModularInteractable
+  ShowTopMostFoldoutHeaderGroup: 1
+  triggerMode: 2
+  priority: 0
+  promptText: Pick Up Bat
+  autoInteractionCooldown: 0.5
+  interactOnce: 0
+  despawnAfterInteraction: 0
+  despawnDelay: 0
+  onStatDepletedEvent: {fileID: 0}
 --- !u!135 &6786937434602997132
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -94,12 +97,25 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7654321098765432109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2160626578538195034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcdcd4b5e0548fb4a853ea86e59f4962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MazeEscape::MazeEscape.BatWeaponPickupEffect
+  batWeaponPrefab: {fileID: 8088137118841385260, guid: 999dcb21b6ebfe24292571588d6f4b6b, type: 3}
 --- !u!1001 &9153383766323968489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,15 +130,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7139694420246865086, guid: 4d5b4465b0d6b9e42baff27d66b0412f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.8167
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7139694420246865086, guid: 4d5b4465b0d6b9e42baff27d66b0412f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.36546
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7139694420246865086, guid: 4d5b4465b0d6b9e42baff27d66b0412f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.41749
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7139694420246865086, guid: 4d5b4465b0d6b9e42baff27d66b0412f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -154,7 +170,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9087931079033002115, guid: 4d5b4465b0d6b9e42baff27d66b0412f, type: 3}
-    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

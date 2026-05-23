@@ -191,7 +191,6 @@ GameObject:
   - component: {fileID: 7139694420246865086}
   - component: {fileID: 7748651459286348101}
   - component: {fileID: 9087931079033002115}
-  - component: {fileID: 9122387794207257867}
   m_Layer: 0
   m_Name: Baseball_Bat_04
   m_TagString: Untagged
@@ -207,8 +206,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2716415725864998416}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.034840196, y: -0.6751817, z: 0.7363411, w: 0.026788391}
+  m_LocalPosition: {x: 0.02, y: -0.08, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -218,7 +217,7 @@ Transform:
   - {fileID: 1901423726367332380}
   - {fileID: 6613495643511181627}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 95, y: -170, z: 5}
 --- !u!205 &7748651459286348101
 LODGroup:
   m_ObjectHideFlags: 0
@@ -276,18 +275,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3024677357141577303, guid: b62b8f690ef3859459494beaffaf8c0d, type: 3}
---- !u!114 &9122387794207257867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2716415725864998416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf7b51b47bf9a9b4d96fe17544fd34d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BatPickup
 --- !u!1 &3617451817740551001
 GameObject:
   m_ObjectHideFlags: 0

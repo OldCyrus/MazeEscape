@@ -27,6 +27,12 @@ namespace Blocks.Gameplay.Shooter
         [SerializeField] private FloatEvent onReloadStartedEvent;
         [Tooltip("Event triggered when weapon spread changes.")]
         [SerializeField] private FloatEvent onWeaponSpreadChanged;
+        [Tooltip("Event triggered when a bat is picked up (raised by BatCarrier on the owner).")]
+        [SerializeField] private Core.GameEvent onBatAcquiredEvent;
+
+        [Header("Hotbar Icons")]
+        [Tooltip("Icon displayed in hotbar slot 1 for the baseball bat.")]
+        [SerializeField] private Sprite batIcon;
 
         [Header("Component Dependencies")]
         [Tooltip("Reference to the aim controller for reticle management.")]
@@ -46,6 +52,12 @@ namespace Blocks.Gameplay.Shooter
         private ProgressBar m_PlayerAmmoBar;
         private VisualElement m_PlayerReticle;
         private WeaponData m_CurrentWeaponData;
+
+        private const int k_HotbarSlotCount = 5;
+        private VisualElement[] m_HotbarSlots;
+        private UnityEngine.UIElements.Image m_BatHotbarIcon;
+        private UnityEngine.UIElements.Image m_GunHotbarIcon;
+        private int m_ActiveSlotIndex = 1;
 
         #endregion
 
@@ -98,6 +110,7 @@ namespace Blocks.Gameplay.Shooter
             onWeaponSpreadChanged.RegisterListener(UpdateReticleSpread);
             onWeaponChanged.RegisterListener(UpdateWeaponReticleAndIcon);
             onAimingStateChanged.RegisterListener(UpdateReticleVisibility);
+            onBatAcquiredEvent?.RegisterListener(HandleBatAcquired);
         }
 
         protected override void UnregisterAdditionalListeners()
@@ -108,6 +121,7 @@ namespace Blocks.Gameplay.Shooter
             onWeaponSpreadChanged.UnregisterListener(UpdateReticleSpread);
             onWeaponChanged.UnregisterListener(UpdateWeaponReticleAndIcon);
             onAimingStateChanged.UnregisterListener(UpdateReticleVisibility);
+            onBatAcquiredEvent?.UnregisterListener(HandleBatAcquired);
         }
 
         protected override void QueryHUDElements(VisualElement root)
@@ -118,6 +132,13 @@ namespace Blocks.Gameplay.Shooter
             m_PlayerAmmoBar = root.Q<ProgressBar>("player-ammo-bar");
             m_PlayerReticle = root.Q<VisualElement>("player-reticle");
             m_WeaponIcon = root.Q<UnityEngine.UIElements.Image>("weapon-icon");
+
+            m_HotbarSlots = new VisualElement[k_HotbarSlotCount];
+            for (int i = 0; i < k_HotbarSlotCount; i++)
+                m_HotbarSlots[i] = root.Q<VisualElement>($"hotbar-slot-{i}");
+
+            m_BatHotbarIcon = root.Q<UnityEngine.UIElements.Image>("hotbar-icon-0");
+            m_GunHotbarIcon = root.Q<UnityEngine.UIElements.Image>("hotbar-icon-1");
         }
 
         protected override void SetHUDDefaults()
@@ -133,6 +154,8 @@ namespace Blocks.Gameplay.Shooter
             {
                 m_PlayerReticle.style.position = Position.Absolute;
             }
+
+            UpdateActiveSlot(1);
         }
 
         #endregion
@@ -173,12 +196,25 @@ namespace Blocks.Gameplay.Shooter
             if (payload.NewWeapon != null)
             {
                 m_CurrentWeaponData = payload.NewWeapon.GetWeaponData();
+                bool isMelee = m_CurrentWeaponData?.isMelee == true;
+                UpdateActiveSlot(isMelee ? 0 : 1);
+
                 if (m_CurrentWeaponData != null)
                 {
                     m_PlayerReticle.style.backgroundImage = new StyleBackground(m_CurrentWeaponData.reticleImage);
                     m_WeaponIcon.sprite = m_CurrentWeaponData.weaponIcon;
 
                     if (m_WeaponTypeLabel != null) m_WeaponTypeLabel.text = m_CurrentWeaponData.weaponName;
+
+                    if (isMelee)
+                    {
+                        if (m_BatHotbarIcon != null && batIcon != null)
+                            m_BatHotbarIcon.sprite = batIcon;
+                    }
+                    else if (m_GunHotbarIcon != null && m_CurrentWeaponData.weaponIcon != null)
+                    {
+                        m_GunHotbarIcon.sprite = m_CurrentWeaponData.weaponIcon;
+                    }
                 }
 
                 if (payload.NewWeapon is ModularWeapon simpleWeapon)
@@ -190,6 +226,7 @@ namespace Blocks.Gameplay.Shooter
             }
             else
             {
+                UpdateActiveSlot(0);
                 m_CurrentWeaponData = null;
                 if (m_WeaponTypeLabel != null) m_WeaponTypeLabel.text = "No Weapon";
                 if (m_WeaponIcon != null) m_WeaponIcon.sprite = null;
@@ -288,6 +325,26 @@ namespace Blocks.Gameplay.Shooter
             }
             weaponReload.fillAmount = 1;
             weaponReload.gameObject.SetActive(false);
+        }
+
+        private void HandleBatAcquired()
+        {
+            if (m_BatHotbarIcon != null && batIcon != null)
+                m_BatHotbarIcon.sprite = batIcon;
+        }
+
+        private void UpdateActiveSlot(int slotIndex)
+        {
+            if (m_HotbarSlots == null) return;
+            m_ActiveSlotIndex = slotIndex;
+            for (int i = 0; i < k_HotbarSlotCount; i++)
+            {
+                if (m_HotbarSlots[i] == null) continue;
+                if (i == slotIndex)
+                    m_HotbarSlots[i].AddToClassList("hotbar-slot-active");
+                else
+                    m_HotbarSlots[i].RemoveFromClassList("hotbar-slot-active");
+            }
         }
 
         #endregion

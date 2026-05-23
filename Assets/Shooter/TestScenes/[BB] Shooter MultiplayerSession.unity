@@ -23196,10 +23196,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   mazeRenderer: {fileID: 808175723}
   batPickupPrefab: {fileID: 2160626578538195034, guid: b0e2eb4f7658eba4aa917c93e592e9ac, type: 3}
-  batVisualPrefab: {fileID: 2160626578538195034, guid: b0e2eb4f7658eba4aa917c93e592e9ac, type: 3}
   batCount: 4
-  minColOverride: 0
-  keyExclusionRadius: 2
 --- !u!1 &1171485342
 GameObject:
   m_ObjectHideFlags: 0

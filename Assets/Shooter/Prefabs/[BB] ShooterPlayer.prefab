@@ -394,8 +394,6 @@ GameObject:
   - component: {fileID: 8172449239711994889}
   - component: {fileID: 6606124303744922498}
   - component: {fileID: 492551780235547040}
-  - component: {fileID: 6812994458305740382}
-  - component: {fileID: -4710445402017234095}
   m_Layer: 3
   m_Name: '[BB] ShooterPlayer'
   m_TagString: Player
@@ -459,7 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3299177739
+  GlobalObjectIdHash: 3509405776
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -565,6 +563,7 @@ MonoBehaviour:
   onLookInput: {fileID: 11400000, guid: 8af931367978e4bc9bae53b88856ff5b, type: 2}
   onJumpPressed: {fileID: 11400000, guid: 84375de8d548d4a43a42608cffd89549, type: 2}
   onJumpReleased: {fileID: 11400000, guid: 4c295680fb10f4080ae6688f6a96a009, type: 2}
+  onInteractPressed: {fileID: 0}
   onSprintStateChanged: {fileID: 11400000, guid: c3ec94fe2e7dd47aaadddb5e98e7c375, type: 2}
   onPrimaryActionPressed: {fileID: 11400000, guid: f48adbe17161042ef8cf65a5a455594a, type: 2}
   onPrimaryActionReleased: {fileID: 11400000, guid: a670f0da4a4d64cea91ff13081e68da8, type: 2}
@@ -707,6 +706,8 @@ MonoBehaviour:
   onWeaponFiredEvent: {fileID: 11400000, guid: b29544cc354224aaf9b624b47ddc4c3a, type: 2}
   onReloadStartedEvent: {fileID: 11400000, guid: 0705967909c0e461b9a4a7ae71804dda, type: 2}
   onWeaponSpreadChanged: {fileID: 11400000, guid: 9bc2e682a3c574903a968681f1fc3374, type: 2}
+  onBatAcquiredEvent: {fileID: 11400000, guid: 6d393c9ee8c3df940869f2ae329b3597, type: 2}
+  batIcon: {fileID: 21300000, guid: a9094ee1aa20c3a4ebe4c1caa638c4af, type: 3}
   aimController: {fileID: 6606124303744922498}
   weaponReload: {fileID: 7838441725742136474}
 --- !u!114 &2088986350967450811
@@ -848,6 +849,8 @@ MonoBehaviour:
   onReloadPressed: {fileID: 11400000, guid: 3e0323886fd3a48e69c7c781f9c35b41, type: 2}
   onNextWeaponPressed: {fileID: 11400000, guid: 55a8cb1fe612e4bae8b5dfccff220981, type: 2}
   onPreviousWeaponPressed: {fileID: 11400000, guid: 3421e308e61ef4449a9391ff47b6c74e, type: 2}
+  onSelectSlot1Pressed: {fileID: 11400000, guid: 3aaadd4da0b8db644b8ab84be47dc538, type: 2}
+  onSelectSlot2Pressed: {fileID: 11400000, guid: f5818ac233d733e439b7127e35edbe67, type: 2}
 --- !u!114 &6183409094579013669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,6 +874,7 @@ MonoBehaviour:
   freeLookSensitivity: 1
   aimSensitivity: 0.5
   onAimToggled: {fileID: 11400000, guid: 7980b19c34cba49e0ab89edafbc46cce, type: 2}
+  onWeaponChanged: {fileID: 11400000, guid: 2b831b903c0ec4c438a5db8f74441180, type: 2}
   onAimingStateChanged: {fileID: 11400000, guid: 1dc6e9c29e890454fbff5f80b1fbf777, type: 2}
 --- !u!114 &8172449239711994889
 MonoBehaviour:
@@ -948,43 +952,10 @@ MonoBehaviour:
   onReloadPressedEvent: {fileID: 11400000, guid: 3e0323886fd3a48e69c7c781f9c35b41, type: 2}
   onNextWeaponPressedEvent: {fileID: 11400000, guid: 55a8cb1fe612e4bae8b5dfccff220981, type: 2}
   onPreviousWeaponPressedEvent: {fileID: 11400000, guid: 3421e308e61ef4449a9391ff47b6c74e, type: 2}
+  onSelectSlot1Event: {fileID: 11400000, guid: 3aaadd4da0b8db644b8ab84be47dc538, type: 2}
+  onSelectSlot2Event: {fileID: 11400000, guid: f5818ac233d733e439b7127e35edbe67, type: 2}
   onAimingStateChanged: {fileID: 11400000, guid: 1dc6e9c29e890454fbff5f80b1fbf777, type: 2}
   onWeaponChanged: {fileID: 11400000, guid: 2b831b903c0ec4c438a5db8f74441180, type: 2}
---- !u!114 &6812994458305740382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4416926081852918481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa8b699d13bc5f24ba340be087eeb6d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MazeEscape.BatCarrier
-  ShowTopMostFoldoutHeaderGroup: 1
-  handAttachPoint: {fileID: 378836817889333911}
-  spineAttachPoint: {fileID: 1193007262088882024}
-  batVisual: {fileID: 2167393069894868273}
-  onWeaponChanged: {fileID: 11400000, guid: 2b831b903c0ec4c438a5db8f74441180, type: 2}
---- !u!114 &-4710445402017234095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4416926081852918481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d891ed9dd2040d42b36040bdf635f46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MazeEscape.BatMeleeAddon
-  ShowTopMostFoldoutHeaderGroup: 1
-  damage: 15
-  attackRange: 1.5
-  hitDelay: 0.35
-  attackCooldown: 0.8
-  onPrimaryActionPressed: {fileID: 11400000, guid: f48adbe17161042ef8cf65a5a455594a, type: 2}
 --- !u!1 &4774193184744459914
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,6 +965,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9120481387420366108}
+  - component: {fileID: 2219757867960987155}
   m_Layer: 6
   m_Name: BatHandPoint
   m_TagString: Untagged
@@ -1009,14 +981,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4774193184744459914}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.034840144, y: -0.67518175, z: 0.7363411, w: 0.026788354}
+  m_LocalPosition: {x: 0.02, y: -0.08, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9158519610592562387}
-  m_Father: {fileID: 2263767085456731390}
+  m_Father: {fileID: 378836817889333911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2219757867960987155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4774193184744459914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b870dfbc4cccf6244b4ed1a9b379c701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::AttachableNode
+  ShowTopMostFoldoutHeaderGroup: 1
+  DetachOnDespawn: 1
 --- !u!1 &6964032051100779426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,12 +1663,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6691687773654949318, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1192920102327165067}
-    - targetCorrespondingSourceObject: {fileID: 6691687773654949318, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9120481387420366108}
     - targetCorrespondingSourceObject: {fileID: 5996907324724041296, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1548907265424963482}
+    - targetCorrespondingSourceObject: {fileID: 5113490673302741935, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9120481387420366108}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3146191227242974650, guid: 072f78a22d80f439b9aa735da891a45e, type: 3}
       insertIndex: -1

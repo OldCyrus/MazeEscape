@@ -41,6 +41,11 @@ namespace Blocks.Gameplay.Core
         /// </summary>
         public Vector3 impactForce;
 
+        /// <summary>
+        /// True when this hit was caused by a melee weapon. Used to skip headshot detection.
+        /// </summary>
+        public bool isMelee;
+
         #endregion
 
         #region INetworkSerializable Implementation
@@ -55,6 +60,7 @@ namespace Blocks.Gameplay.Core
             serializer.SerializeValue(ref hitNormal);
             serializer.SerializeValue(ref attackerId);
             serializer.SerializeValue(ref impactForce);
+            serializer.SerializeValue(ref isMelee);
         }
 
         #endregion

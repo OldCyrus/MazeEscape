@@ -35,33 +35,12 @@ namespace MazeEscape
         [Tooltip("The BaseballBat pickup prefab (must have NetworkObject).")]
         [SerializeField] private GameObject batPickupPrefab;
 
-        [Tooltip("Optional prefab for the carried bat visual. Forwarded to each spawned bat.")]
-        public GameObject batVisualPrefab;
-
         [Header("Settings")]
         [Tooltip("How many bats to spawn per match.")]
         [SerializeField] private int batCount = 4;
 
-        [Tooltip("Minimum column index for bat spawning (0 = left edge). " +
-                 "Default 0 lets the code calculate half automatically. " +
-                 "Override here to fine-tune the spawn zone.")]
-        [SerializeField] private int minColOverride = 0;
-
-        [Tooltip("Minimum distance in cells from the key spawn cell to exclude " +
-                 "bats spawning right on top of the key.")]
-        [SerializeField] private int keyExclusionRadius = 2;
-
-        // Key spawn: col=20, row=0 (matches NetworkPickupKey.SpawnPosition logic)
-        // These must match MazeRenderer's rows/cols/cellSize and the key position
-        // in NetworkPickupKey. If those change, update here.
-        private const int KeySpawnCol = 20;
-        private const int KeySpawnRow = 0;
-
         // How high above the floor to place the bat (matches NetworkPickupKey).
         private const float SpawnHeight = 0.5f;
-
-        // Outer ring exclusion — don't spawn in the outermost cells (walls live there).
-        private const int BorderMargin = 1;
 
         // ── Network spawn ─────────────────────────────────────────────────────
 
@@ -108,7 +87,7 @@ namespace MazeEscape
 
             if (candidates.Count == 0)
             {
-                Debug.LogWarning("[BatSpawner] No valid spawn cells found in back half of maze.", this);
+                Debug.LogWarning("[BatSpawner] No valid spawn cells found in room interiors.", this);
                 yield break;
             }
 
@@ -132,42 +111,23 @@ namespace MazeEscape
 
         // ── Candidate cell logic ──────────────────────────────────────────────
 
-        /// <summary>
-        /// Returns all walkable cells in the back (right) half of the maze,
-        /// excluding the border ring and the area around the key spawn.
-        /// A cell is considered walkable if it was carved by the DFS — i.e. at
-        /// least one of its four walls is open (not solid). This is always true
-        /// for every interior cell after generation.
-        /// </summary>
+        // Returns all interior cells from every room, shrunk 1 cell inward on each side
+        // so spawns never land on doorway edges or outer room walls.
         private List<Vector2Int> BuildCandidateList(MazeData maze)
         {
-            int cols    = maze.cols;
-            int rows    = maze.rows;
-
-            // Back half: right portion of the maze, away from the spawn entrance.
-            // minCol is at least half the maze width.
-            int minCol = Mathf.Max(minColOverride > 0 ? minColOverride : cols / 2,
-                                   BorderMargin);
-            int maxCol = cols - 1 - BorderMargin;
-            int minRow = BorderMargin;
-            int maxRow = rows - 1 - BorderMargin;
-
             var candidates = new List<Vector2Int>();
+            if (maze.rooms == null) return candidates;
 
-            for (int r = minRow; r <= maxRow; r++)
+            foreach (RectInt room in maze.rooms)
             {
-                for (int c = minCol; c <= maxCol; c++)
-                {
-                    // Exclude cells too close to the key spawn.
-                    int dRow = Mathf.Abs(r - KeySpawnRow);
-                    int dCol = Mathf.Abs(c - KeySpawnCol);
-                    if (dRow <= keyExclusionRadius && dCol <= keyExclusionRadius)
-                        continue;
+                int minCol = room.x + 1;
+                int maxCol = room.x + room.width - 2;
+                int minRow = room.y + 1;
+                int maxRow = room.y + room.height - 2;
 
-                    // All interior cells after DFS are reachable — no further
-                    // walkability check needed. The maze guarantees connectivity.
-                    candidates.Add(new Vector2Int(c, r));
-                }
+                for (int r = minRow; r <= maxRow; r++)
+                    for (int c = minCol; c <= maxCol; c++)
+                        candidates.Add(new Vector2Int(c, r));
             }
 
             return candidates;
@@ -175,22 +135,12 @@ namespace MazeEscape
 
         // ── Coordinate conversion ─────────────────────────────────────────────
 
-        /// <summary>
-        /// Converts a maze cell (col, row) to a world position, accounting for
-        /// MazeRenderer's transform origin and cellSize.
-        /// Matches the formula used by MazeRenderer when placing walls/floor.
-        /// </summary>
         private static Vector3 CellToWorld(Vector2Int cell, MazeRenderer renderer)
         {
-            float cs   = renderer.cellSize;
-            Vector3 origin = renderer.transform.position;
-
-            // MazeRenderer places objects at: localPos = (c * cs, 0, r * cs)
-            // relative to the renderer's transform.
-            float worldX = origin.x + cell.x * cs;
-            float worldZ = origin.z + cell.y * cs;
-
-            return new Vector3(worldX, origin.y + SpawnHeight, worldZ);
+            return renderer.transform.TransformPoint(new Vector3(
+                cell.x * renderer.cellSize,
+                SpawnHeight,
+                cell.y * renderer.cellSize));
         }
 
         // ── Spawn ─────────────────────────────────────────────────────────────
@@ -203,9 +153,6 @@ namespace MazeEscape
             if (no != null)
             {
                 no.Spawn();
-                BaseballBat bb = bat.GetComponent<BaseballBat>();
-                if (bb != null)
-                    bb.SetVisualPrefab(batVisualPrefab);
             }
             else
             {

@@ -187,3 +187,48 @@
     --color-progressbar-text: rgb(255, 255, 255);
     --color-progressbar-text-low: rgb(255, 0, 0);
     --color-progressbar-ammo-blue: rgba(19, 181, 231, 0.75);
+}
+
+#hotbar-container {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.hotbar-slot {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(0, 0, 0, 0.55);
+    border-radius: 6px;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.25);
+    margin-left: 4px;
+    margin-right: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.hotbar-slot-active {
+    border-color: rgba(255, 200, 0, 0.9);
+    border-width: 3px;
+    background-color: rgba(255, 200, 0, 0.12);
+}
+
+.hotbar-key {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.65);
+    -unity-font-style: bold;
+}
+
+.hotbar-icon {
+    width: 38px;
+    height: 38px;
+    -unity-background-scale-mode: scale-to-fit;
+}

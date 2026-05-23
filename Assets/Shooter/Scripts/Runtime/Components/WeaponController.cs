@@ -37,6 +37,10 @@ namespace Blocks.Gameplay.Shooter
         [SerializeField] private GameEvent onNextWeaponPressedEvent;
         [Tooltip("Event raised when the previous weapon button is pressed.")]
         [SerializeField] private GameEvent onPreviousWeaponPressedEvent;
+        [Tooltip("Event raised when hotbar slot 1 (bat) is selected.")]
+        [SerializeField] private GameEvent onSelectSlot1Event;
+        [Tooltip("Event raised when hotbar slot 2 (gun) is selected.")]
+        [SerializeField] private GameEvent onSelectSlot2Event;
         [Tooltip("Event raised when the aiming state changes.")]
         [SerializeField] private BoolEvent onAimingStateChanged;
 
@@ -111,6 +115,8 @@ namespace Blocks.Gameplay.Shooter
                 onReloadPressedEvent.RegisterListener(HandleReloadPressed);
                 onNextWeaponPressedEvent.RegisterListener(HandleNextWeaponPressed);
                 onPreviousWeaponPressedEvent.RegisterListener(HandlePreviousWeaponPressed);
+                onSelectSlot1Event?.RegisterListener(HandleSelectSlot1);
+                onSelectSlot2Event?.RegisterListener(HandleSelectSlot2);
                 onAimingStateChanged.RegisterListener(HandleAimingStateChanged);
 
                 m_PlayerWeaponState.Value = new PlayerWeaponState { hasWeapon = false, isAiming = false, weaponIndex = 0 };
@@ -134,6 +140,8 @@ namespace Blocks.Gameplay.Shooter
                 onReloadPressedEvent.UnregisterListener(HandleReloadPressed);
                 onNextWeaponPressedEvent.UnregisterListener(HandleNextWeaponPressed);
                 onPreviousWeaponPressedEvent.UnregisterListener(HandlePreviousWeaponPressed);
+                onSelectSlot1Event?.UnregisterListener(HandleSelectSlot1);
+                onSelectSlot2Event?.UnregisterListener(HandleSelectSlot2);
                 onAimingStateChanged.UnregisterListener(HandleAimingStateChanged);
 
                 foreach (var attachableWeapon in m_SpawnedWeaponAttachables)
@@ -227,6 +235,7 @@ namespace Blocks.Gameplay.Shooter
         private void HandleAimingStateChanged(bool isAiming)
         {
             m_IsAiming = isAiming;
+            if (CurrentWeapon?.GetWeaponData()?.isMelee == true) return;
 
             if (!isAiming)
             {
@@ -243,32 +252,66 @@ namespace Blocks.Gameplay.Shooter
 
         private void HandleNextWeaponPressed()
         {
-            if (!coreStats.IsAlive || CurrentWeapon.GetCurrentState() == WeaponState.Reloading || WeaponCount <= 1) return;
+            if (!coreStats.IsAlive || CurrentWeapon == null || CurrentWeapon.GetCurrentState() == WeaponState.Reloading || WeaponCount <= 1) return;
             if (aimController != null && aimController.IsWeaponObstructed) return;
             SwitchToWeapon((m_CurrentWeaponIndex + 1) % WeaponCount);
         }
 
         private void HandlePreviousWeaponPressed()
         {
-            if (!coreStats.IsAlive || CurrentWeapon.GetCurrentState() == WeaponState.Reloading || WeaponCount <= 1) return;
+            if (!coreStats.IsAlive || CurrentWeapon == null || CurrentWeapon.GetCurrentState() == WeaponState.Reloading || WeaponCount <= 1) return;
             if (aimController != null && aimController.IsWeaponObstructed) return;
             SwitchToWeapon((m_CurrentWeaponIndex - 1 + WeaponCount) % WeaponCount);
         }
 
+        private void HandleSelectSlot1()
+        {
+            if (!IsOwner || !coreStats.IsAlive) return;
+            int idx = FindWeaponIndex(isMelee: true);
+            if (idx >= 0) SwitchToWeapon(idx);
+        }
+
+        private void HandleSelectSlot2()
+        {
+            if (!IsOwner || !coreStats.IsAlive) return;
+            int idx = FindWeaponIndex(isMelee: false);
+            if (idx >= 0) SwitchToWeapon(idx);
+        }
+
+        private int FindWeaponIndex(bool isMelee)
+        {
+            for (int i = 0; i < m_WeaponImplementations.Count; i++)
+            {
+                var data = m_WeaponImplementations[i].GetWeaponData();
+                if (data != null && data.isMelee == isMelee) return i;
+            }
+            return -1;
+        }
+
         private void HandleFirePressed()
         {
-            if (!coreStats.IsAlive ||
-                CurrentWeapon == null ||
-                !CurrentWeapon.CanFire() ||
-                !m_IsAiming ||
-                m_Animator.GetBool(k_IsSwitchingWeapon) ||
-                m_Animator.GetBool(k_AnimIDIsReloading)) return;
+            if (!coreStats.IsAlive || CurrentWeapon == null || !CurrentWeapon.CanFire()) return;
+            if (m_Animator.GetBool(k_IsSwitchingWeapon) || m_Animator.GetBool(k_AnimIDIsReloading)) return;
 
-            Vector3 fireOrigin = Camera.main != null ? Camera.main.transform.position : transform.position;
-            Vector3 aimTargetPosition = aimController.PreciseAimTargetPosition;
+            bool isMelee = CurrentWeapon.GetWeaponData()?.isMelee == true;
 
-            Transform muzzleTransform = (CurrentWeapon as ModularWeapon)?.Muzzle ?? aimController.AimTransform;
-            Vector3 fireDirection = (aimTargetPosition - muzzleTransform.position).normalized;
+            if (!isMelee && !m_IsAiming) return;
+
+            Vector3 fireOrigin;
+            Vector3 fireDirection;
+
+            if (isMelee)
+            {
+                fireOrigin    = transform.position;
+                fireDirection = transform.forward;
+            }
+            else
+            {
+                fireOrigin = Camera.main != null ? Camera.main.transform.position : transform.position;
+                Vector3 aimTargetPosition = aimController.PreciseAimTargetPosition;
+                Transform muzzleTransform = (CurrentWeapon as ModularWeapon)?.Muzzle ?? aimController.AimTransform;
+                fireDirection = (aimTargetPosition - muzzleTransform.position).normalized;
+            }
 
             CurrentWeapon.Fire(gameObject, fireOrigin, fireDirection);
         }
@@ -281,6 +324,7 @@ namespace Blocks.Gameplay.Shooter
         private void HandleReloadPressed()
         {
             if (!coreStats.IsAlive || CurrentWeapon == null || CurrentWeapon.GetCurrentState() == WeaponState.Reloading) return;
+            if (CurrentWeapon.GetWeaponData()?.isMelee == true) return;
 
             if (CurrentWeapon is ModularWeapon simpleWeapon && simpleWeapon.NeedsReload())
             {
@@ -311,7 +355,8 @@ namespace Blocks.Gameplay.Shooter
             if (!IsSpawned) return;
 
             var currentState = m_PlayerWeaponState.Value;
-            if (currentState.UpdateState(CurrentWeapon != null, m_IsAiming, m_CurrentWeaponIndex))
+            bool hasActiveWeapon = CurrentWeapon != null;
+            if (currentState.UpdateState(hasActiveWeapon, m_IsAiming, m_CurrentWeaponIndex))
             {
                 m_PlayerWeaponState.Value = currentState;
             }
@@ -394,10 +439,21 @@ namespace Blocks.Gameplay.Shooter
                 yield return new WaitForSeconds(m_WeaponSwitchAnimationSyncTime);
             }
 
-            // Detach the old weapon from the attachment node
-            if (m_CurrentAttachableWeapon != null)
+            // Detach or stow the old weapon
+            if (m_CurrentAttachableWeapon != null && m_CurrentAttachableWeapon.HasAuthority)
             {
-                if (m_CurrentAttachableWeapon.HasAuthority) m_CurrentAttachableWeapon.Detach();
+                var oldData = m_CurrentWeapon?.GetWeaponData();
+                if (oldData?.isMelee == true
+                    && !string.IsNullOrEmpty(oldData.idleAttachmentNodeName)
+                    && m_AttachmentNodes.TryGetValue(oldData.idleAttachmentNodeName, out var stowNode))
+                {
+                    // Melee weapons rest at their idle node (e.g. back/spine) when another weapon is equipped
+                    m_CurrentAttachableWeapon.Attach(stowNode);
+                }
+                else
+                {
+                    m_CurrentAttachableWeapon.Detach();
+                }
             }
 
             // Update to the new weapon
@@ -416,7 +472,7 @@ namespace Blocks.Gameplay.Shooter
                 onWeaponChanged.Raise(new WeaponSwapPayload { OldWeapon = oldWeapon, NewWeapon = m_CurrentWeapon });
             }
 
-            // Update animator with new weapon type
+            // Update animator with new weapon type (reset to 0 when no weapon equipped)
             if (m_CurrentWeapon != null)
             {
                 var weaponData = m_CurrentWeapon.GetWeaponData();
@@ -424,6 +480,10 @@ namespace Blocks.Gameplay.Shooter
                 {
                     m_Animator.SetInteger(m_AnimIDWeaponType, weaponData.weaponTypeID);
                 }
+            }
+            else
+            {
+                m_Animator.SetInteger(m_AnimIDWeaponType, 0);
             }
 
             // Update animation rigging overrides for the new weapon
@@ -450,6 +510,7 @@ namespace Blocks.Gameplay.Shooter
             {
                 m_CurrentWeapon = null;
                 m_CurrentAttachableWeapon = null;
+                m_Animator.SetInteger(m_AnimIDWeaponType, 0);
                 return;
             }
 
@@ -486,8 +547,8 @@ namespace Blocks.Gameplay.Shooter
                 return;
             }
 
-            // Select the appropriate attachment node based on aiming state
-            string targetNodeName = m_IsAiming ? weaponData.handAttachmentNodeName : weaponData.idleAttachmentNodeName;
+            // Melee weapons always use the hand node (no aiming state); ranged use hand when aiming, idle when not
+            string targetNodeName = (weaponData.isMelee || m_IsAiming) ? weaponData.handAttachmentNodeName : weaponData.idleAttachmentNodeName;
 
             if (!string.IsNullOrEmpty(targetNodeName) && m_AttachmentNodes.TryGetValue(targetNodeName, out AttachableNode targetNode))
             {

@@ -21,4 +21,23 @@
         <ui:VisualElement name="message-divider"/>
         <ui:Label name="countdown-label" text="05"/>
     </ui:VisualElement>
+    <ui:VisualElement name="hotbar-container">
+        <ui:VisualElement name="hotbar-slot-0" class="hotbar-slot">
+            <ui:Label name="hotbar-key-0" text="1" class="hotbar-key"/>
+            <ui:Image name="hotbar-icon-0" class="hotbar-icon"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="hotbar-slot-1" class="hotbar-slot">
+            <ui:Label name="hotbar-key-1" text="2" class="hotbar-key"/>
+            <ui:Image name="hotbar-icon-1" class="hotbar-icon"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="hotbar-slot-2" class="hotbar-slot">
+            <ui:Label name="hotbar-key-2" text="3" class="hotbar-key"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="hotbar-slot-3" class="hotbar-slot">
+            <ui:Label name="hotbar-key-3" text="4" class="hotbar-key"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="hotbar-slot-4" class="hotbar-slot">
+            <ui:Label name="hotbar-key-4" text="5" class="hotbar-key"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

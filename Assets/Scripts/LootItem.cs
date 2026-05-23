@@ -51,10 +51,7 @@ public abstract class LootItem : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
-            _playerInRange = true;
-            _nearbyPlayer  = other.gameObject;
-        }
+            TryPickup(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)

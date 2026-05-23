@@ -16,6 +16,6 @@ MonoBehaviour:
   minValue: 0
   maxValue: 100
   startingValue: 100
-  regenRate: 5
+  regenRate: 0
   regenDelay: 3
   eventFlags: -1

@@ -75,6 +75,7 @@ namespace Blocks.Gameplay.Shooter
                 onPrimaryActionPressedEvent.RegisterListener(HandleFireAnimation);
                 onReloadStartedEvent.RegisterListener(HandleReloadStarted);
                 onReloadCompletedEvent.RegisterListener(HandleReloadCompleted);
+                onWeaponChanged.RegisterListener(HandleWeaponChanged);
             }
         }
 
@@ -85,6 +86,7 @@ namespace Blocks.Gameplay.Shooter
                 onPrimaryActionPressedEvent.UnregisterListener(HandleFireAnimation);
                 onReloadStartedEvent.UnregisterListener(HandleReloadStarted);
                 onReloadCompletedEvent.UnregisterListener(HandleReloadCompleted);
+                onWeaponChanged.UnregisterListener(HandleWeaponChanged);
             }
             base.OnNetworkDespawn();
         }
@@ -227,13 +229,20 @@ namespace Blocks.Gameplay.Shooter
             Animator.SetBool(m_AnimIDIsReloading, false);
         }
 
+        private void HandleWeaponChanged(WeaponSwapPayload payload)
+        {
+            m_LastWeaponEquipped = payload.NewWeapon;
+        }
+
         /// <summary>
         /// Handles the fire animation trigger when the primary action is pressed.
         /// Only executed on the owner's instance to prevent duplicate animations.
         /// </summary>
         private void HandleFireAnimation()
         {
-            if (IsOwner) Animator.SetTrigger(m_AnimIDShoot);
+            if (!IsOwner) return;
+            if (m_LastWeaponEquipped is ModularWeapon mw && mw.GetWeaponData().isMelee) return;
+            Animator.SetTrigger(m_AnimIDShoot);
         }
 
         /// <summary>

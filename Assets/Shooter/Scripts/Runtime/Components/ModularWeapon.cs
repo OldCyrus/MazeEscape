@@ -344,6 +344,7 @@ namespace Blocks.Gameplay.Shooter
         private void HandleFiringMechanismShot()
         {
             if (!CanFire()) return;
+            if (m_OwnerPlayerManager == null) return;
 
             // Populate shooting context with all necessary data
             m_ShootingContext.owner = m_OwnerPlayerManager.gameObject;
@@ -362,7 +363,8 @@ namespace Blocks.Gameplay.Shooter
 
             m_ShootingBehavior.Shoot(m_ShootingContext);
             m_SpreadHandler.IncreaseSpread();
-            PlayMuzzleFlashRpc(muzzle.position, muzzle.forward);
+            if (muzzle != null && !weaponData.isMelee)
+                PlayMuzzleFlashRpc(muzzle.position, muzzle.forward);
             CoreDirector.RequestCameraShake()
                 .WithImpulseDefinition(CinemachineImpulseDefinition.ImpulseShapes.Recoil,
                     CinemachineImpulseDefinition.ImpulseTypes.Propagating,
@@ -376,7 +378,7 @@ namespace Blocks.Gameplay.Shooter
 
         private bool IsMuzzleObstructed()
         {
-            if (m_OwnerPlayerManager == null || muzzle == null) return false;
+            if (m_OwnerPlayerManager == null || muzzle == null || weaponData.isMelee) return false;
 
             Vector3 chestPosition = m_OwnerPlayerManager.transform.position + Vector3.up * chestHeightOffset;
 
@@ -435,12 +437,13 @@ namespace Blocks.Gameplay.Shooter
                 .WithDuration(0.3f)
                 .Create();
 
-            CoreDirector.CreatePrefabEffect(weaponData.bulletShellPrefab)
-                .WithPosition(bulletShellEjectPoint.position)
-                .WithLookDirection(-muzzleDirection)
-                .WithName("Shell")
-                .WithDuration(1f)
-                .Create();
+            if (bulletShellEjectPoint != null)
+                CoreDirector.CreatePrefabEffect(weaponData.bulletShellPrefab)
+                    .WithPosition(bulletShellEjectPoint.position)
+                    .WithLookDirection(-muzzleDirection)
+                    .WithName("Shell")
+                    .WithDuration(1f)
+                    .Create();
         }
 
         [Rpc(SendTo.Everyone)]

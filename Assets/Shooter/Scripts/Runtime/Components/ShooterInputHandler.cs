@@ -24,6 +24,10 @@ namespace Blocks.Gameplay.Shooter
         [SerializeField] private Core.GameEvent onNextWeaponPressed;
         [Tooltip("Raised when the previous weapon button is pressed.")]
         [SerializeField] private Core.GameEvent onPreviousWeaponPressed;
+        [Tooltip("Raised when hotbar slot 1 (bat) is pressed.")]
+        [SerializeField] private Core.GameEvent onSelectSlot1Pressed;
+        [Tooltip("Raised when hotbar slot 2 (gun) is pressed.")]
+        [SerializeField] private Core.GameEvent onSelectSlot2Pressed;
 
         private GameplayInputSystem_Actions m_InputActions;
 
@@ -83,6 +87,9 @@ namespace Blocks.Gameplay.Shooter
 
             m_InputActions.Player.Next.performed += HandleNextWeapon;
             m_InputActions.Player.Previous.performed += HandlePreviousWeapon;
+
+            m_InputActions.Player.SelectSlot1.performed += HandleSelectSlot1;
+            m_InputActions.Player.SelectSlot2.performed += HandleSelectSlot2;
         }
 
         private void UnregisterInputActions()
@@ -94,6 +101,9 @@ namespace Blocks.Gameplay.Shooter
 
             m_InputActions.Player.Next.performed -= HandleNextWeapon;
             m_InputActions.Player.Previous.performed -= HandlePreviousWeapon;
+
+            m_InputActions.Player.SelectSlot1.performed -= HandleSelectSlot1;
+            m_InputActions.Player.SelectSlot2.performed -= HandleSelectSlot2;
         }
 
         #endregion
@@ -105,6 +115,8 @@ namespace Blocks.Gameplay.Shooter
         private void HandleReload(InputAction.CallbackContext context) => onReloadPressed?.Raise();
         private void HandleNextWeapon(InputAction.CallbackContext context) => onNextWeaponPressed?.Raise();
         private void HandlePreviousWeapon(InputAction.CallbackContext context) => onPreviousWeaponPressed?.Raise();
+        private void HandleSelectSlot1(InputAction.CallbackContext context) => onSelectSlot1Pressed?.Raise();
+        private void HandleSelectSlot2(InputAction.CallbackContext context) => onSelectSlot2Pressed?.Raise();
 
         #endregion
     }

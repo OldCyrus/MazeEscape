@@ -96,11 +96,10 @@ namespace Blocks.Gameplay.Shooter
                 damage *= (1f - armorDamageReduction);
             }
 
-            // Check if hit point is above character's head height to determine headshot
-            // Uses a 1.5 unit offset above the character's position as the headshot threshold
-            if (info.hitPoint.y > transform.position.y + 1.5f)
+            // Headshots only apply to ranged weapons; melee always deals its base damage
+            if (!info.isMelee && info.hitPoint.y > transform.position.y + 1.5f)
             {
-                damage *= headshotMultiplier;
+                damage = coreStats.GetMaxValue(StatKeys.Health);
             }
             return damage;
         }
