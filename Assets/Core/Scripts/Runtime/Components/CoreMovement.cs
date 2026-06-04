@@ -182,7 +182,7 @@ namespace Blocks.Gameplay.Core
         /// <summary>
         /// Gets or sets the player's rotation coupling mode.
         /// </summary>
-        public CouplingMode PlayerRotationMode { get; set; } = CouplingMode.Decoupled;
+        public CouplingMode PlayerRotationMode { get; set; } = CouplingMode.CoupledWhenMoving;
 
         /// <summary>
         /// Gets the last non-zero horizontal movement direction.

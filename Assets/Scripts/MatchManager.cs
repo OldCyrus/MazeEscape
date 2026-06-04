@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -29,6 +30,14 @@ namespace MazeEscape
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Server);
 
+        /// <summary>True once all connected players have reported ready. Clears the loading screen on all clients.</summary>
+        public readonly NetworkVariable<bool> MatchReady = new NetworkVariable<bool>(
+            false,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Server);
+
+        private readonly HashSet<ulong> m_ReadyClients = new HashSet<ulong>();
+
         // ── Lifecycle ─────────────────────────────────────────────────────────
 
         private void Awake() => Instance = this;
@@ -44,6 +53,28 @@ namespace MazeEscape
         }
 
         // ── Public API (server only) ──────────────────────────────────────────
+
+        /// <summary>
+        /// Called by each client once their character is fully built and ready.
+        /// Server sets MatchReady = true when all connected clients have reported.
+        /// </summary>
+        [Rpc(SendTo.Server)]
+        public void ReportReadyServerRpc(RpcParams rpcParams = default)
+        {
+            if (MatchReady.Value) return;
+
+            ulong senderId = rpcParams.Receive.SenderClientId;
+            if (!m_ReadyClients.Add(senderId)) return;
+
+            int expected = NetworkManager.Singleton.ConnectedClients.Count;
+            Debug.Log($"[MatchManager] Ready: {m_ReadyClients.Count}/{expected}");
+
+            if (m_ReadyClients.Count >= expected)
+            {
+                MatchReady.Value = true;
+                Debug.Log("[MatchManager] All players ready. Match starting.");
+            }
+        }
 
         /// <summary>
         /// Ends the match and declares a winner. Must be called on the server.

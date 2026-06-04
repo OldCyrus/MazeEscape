@@ -124,5 +124,18 @@ namespace Blocks.Gameplay.Core
         private void HandleInteractPressed(InputAction.CallbackContext context) => onInteractPressed?.Raise();
 
         #endregion
+
+        #region Public Methods
+
+        public void SetInputEnabled(bool isEnabled)
+        {
+            if (m_InputActions == null) return;
+            if (isEnabled)
+                m_InputActions.Player.Enable();
+            else
+                m_InputActions.Player.Disable();
+        }
+
+        #endregion
     }
 }

@@ -177,7 +177,7 @@ namespace Blocks.Gameplay.Shooter
             }
 
             if (m_PlayerManager?.CoreMovement != null)
-                m_PlayerManager.CoreMovement.PlayerRotationMode = CoreMovement.CouplingMode.Decoupled;
+                m_PlayerManager.CoreMovement.PlayerRotationMode = CoreMovement.CouplingMode.CoupledWhenMoving;
 
             if (aimController != null)
             {
@@ -222,7 +222,7 @@ namespace Blocks.Gameplay.Shooter
             if (m_PlayerManager?.CoreMovement != null)
                 m_PlayerManager.CoreMovement.PlayerRotationMode = m_IsAiming
                     ? CoreMovement.CouplingMode.Coupled
-                    : CoreMovement.CouplingMode.Decoupled;
+                    : CoreMovement.CouplingMode.CoupledWhenMoving;
         }
 
         #endregion

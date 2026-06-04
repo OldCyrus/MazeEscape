@@ -1,0 +1,1 @@
+Controller: Locomotion | Path: Assets/UMA/Content/Example/Animators/Locomotion.controller | RBs:0 CCs:0

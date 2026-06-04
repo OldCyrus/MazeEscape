@@ -242,6 +242,7 @@ namespace Blocks.Gameplay.Core
                 {
                     Debug.LogWarning("[GameManager] CoreStatsHandler component not found on local player. Cannot restore health.", this);
                 }
+
             }
         }
 
@@ -319,6 +320,7 @@ namespace Blocks.Gameplay.Core
             {
                 Debug.LogWarning("[GameManager] CoreStatsHandler component not found on local player. Cannot restore health.", this);
             }
+
         }
 
         /// <summary>
